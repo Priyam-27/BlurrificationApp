@@ -1,5 +1,6 @@
-cvlib
-numpy
-NudeNet
-streamlit==0.60.0
-opencv-python-headless
+cvlib==0.2.6
+numpy==1.19.5
+NudeNet==2.0.9
+streamlit==0.76.0
+opencv-python-headless==4.5.1.48
+opencv-python==4.5.1.48
