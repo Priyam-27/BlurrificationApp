@@ -6,7 +6,7 @@ import streamlit as st
 import tempfile
 # import pytesseract
 # from pytesseract import Output
-from nudenet import NudeDetector as ND
+from nudenet import NudeDetector
 
 eye_classifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_eye.xml')
 smile_classifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_smile.xml')
@@ -15,12 +15,12 @@ smile_classifier = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_smil
 
 # word = ['what', 'want', 'You', 'you', 'know', "touch", 'those']        # list of words to be masked
 
-
+detector = NudeDetector()
 def nudity_blur(img):
 	classes = ['EXPOSED_ANUS', 'EXPOSED_BUTTOCKS', 'COVERED_BREAST_F', 'EXPOSED_BREAST_F',
            'EXPOSED_GENITALIA_F', 'EXPOSED_GENITALIA_M', 'EXPOSED_BUTTOCKS', 'EXPOSED_BREAST_F', 'EXPOSED_GENITALIA_F',
            'EXPOSED_GENITALIA_M', 'EXPOSED_BREAST_M']
-	detector = ND()
+	# detector = ND()
 
 	for i in detector.detect(img):
 		if i['label'] in classes:
@@ -154,7 +154,7 @@ def main():
 			tfile = tempfile.NamedTemporaryFile(delete=False)
 			tfile.write(file.read())
 
-			choice_type = st.sidebar.radio('Make your choice', ['Original', 'Eyes', 'Face', 'Smile', 'Nudity',])
+			choice_type = st.sidebar.radio('Make your choice', ['Original', 'Eyes', 'Face', 'Smile', 'Nudity'])
 
 			if st.button('Process'):
 				if choice_type == 'Original':
